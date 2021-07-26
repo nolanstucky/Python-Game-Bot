@@ -12,11 +12,12 @@ def main():
 
     startEncounters()
 
+
     # holdKey('w')
     # holdKey('s')
 
     print(pyautogui.position())
-    print(PIL.ImageGrab.grab().load()[1178,51])
+    print(PIL.ImageGrab.grab().load()[310,850])
     # print(PIL.ImageGrab.grab().load()[659,942])
 
 def countDownTimer():
@@ -40,25 +41,48 @@ def startEncounters():
     numberOfEncounters = 0
     while numberOfEncounters < 1:
 
-        pixelEncounterTracker = PIL.ImageGrab.grab().load()[659,942]
+        pixelEncounterTracker = PIL.ImageGrab.grab().load()[310,850]
         pixelNonEncounterTracker = PIL.ImageGrab.grab().load()[1178,51]
 
         if keyboard.is_pressed('k'):
             break
 
         if pixelEncounterTracker == (30,30,30):
+            pyautogui.keyUp('w')
             pyautogui.press('8')
             time.sleep(0.5)
             pyautogui.press('8')
 
-        if pixelNonEncounterTracker == (60,232,234):
-            holdKey('w')
-            holdKey('s')
+        if pixelNonEncounterTracker == (61,232,234) or pixelNonEncounterTracker == (60,232,234):
+            movementOption1()
 
-        print(encounterTracker)
+        print(pixelNonEncounterTracker)
         print(numberOfEncounters)
-        time.sleep(1)
         
+        
+
+def movementOption1():
+
+    
+    pyautogui.keyDown('w')
+    time.sleep(0.3)
+    pyautogui.keyDown('a')
+    time.sleep(0.3)
+    pyautogui.keyUp('w')
+    pyautogui.keyDown('s')
+    time.sleep(0.53)
+    pyautogui.keyUp('a')
+    pyautogui.keyDown('d')
+    time.sleep(0.53)
+    pyautogui.keyUp('s')
+    time.sleep(0.3)
+    pyautogui.keyDown('w')
+    pyautogui.keyUp('d')
+    
+    
+    
+
+    
 
 def encounterTracker():
     pixelEncounterTracker = PIL.ImageGrab.grab().load()[659,942]
