@@ -1,55 +1,56 @@
-import cv2 as cv
-import numpy as np
+import cv2 
+import numpy 
 import os
-import pyautogui
 from time import time
-import win32gui, win32ui, win32con
+from windowcapture import WindowCapture
+from mss import mss
 
 #changes working directory to folder this script is in
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+# wincap = WindowCapture('Steam')
 
-def window_capture():
-    # define your monitor width and height
-    w = 1920 # set this
-    h = 1080 # set this
-    bmpfilenamename = "out.bmp" #set this
+# WindowCapture.list_window_names()
 
-    hwnd = None
-    wDC = win32gui.GetWindowDC(hwnd)
-    dcObj=win32ui.CreateDCFromHandle(wDC)
-    cDC=dcObj.CreateCompatibleDC()
-    dataBitMap = win32ui.CreateBitmap()
-    dataBitMap.CreateCompatibleBitmap(dcObj, w, h)
-    cDC.SelectObject(dataBitMap)
-    cDC.BitBlt((0,0),(w, h) , dcObj, (0,0), win32con.SRCCOPY)
-    dataBitMap.SaveBitmapFile(cDC, bmpfilenamename)
-
-    # Free Resources
-    dcObj.DeleteDC()
-    cDC.DeleteDC()
-    win32gui.ReleaseDC(hwnd, wDC)
-    win32gui.DeleteObject(dataBitMap.GetHandle())
+# loop_time = time()
+# while(True):
 
 
-loop_time = time()
-while(True):
+#     # screenshot = wincap.get_screenshot()
+
+#     cv.imshow('Computer Vision', screenshot)
+
+#     print('FPS {}' .format(1 / (time() - loop_time)))
+#     loop_time = time()
 
 
-    screenshot = pyautogui.screenshot()
-    screenshot = np.array(screenshot)
-
-    #converts screenshot to BGR from RGB
-
-    screenshot = cv.cvtColor(screenshot, cv.COLOR_RGB2BGR)
-
-    cv.imshow('Computer Vision', screenshot)
-
-    print('FPS {}' .format(1 / (time() - loop_time)))
-    loop_time = time()
+#     if cv.waitKey(1) == ord('k'):
+#         cv.destroyAllWindows()
+#         break
 
 
-    if cv.waitKey(1) == ord('k'):
-        cv.destroyAllWindows()
-        break
-print('Done.')
+# print('Done.')
+
+with mss() as sct:
+    # Part of the screen to capture
+    monitor = {"top": 40, "left": 0, "width": 1280, "height": 1040}
+
+    while "Screen capturing":
+        last_time = time()
+
+        # Get raw pixels from the screen, save it to a Numpy array
+        img = numpy.array(sct.grab(monitor))
+
+        # Display the picture
+        cv2.imshow("OpenCV/Numpy normal", img)
+
+        # Display the picture in grayscale
+        # cv2.imshow('OpenCV/Numpy grayscale',
+        #            cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY))
+
+        print("fps: {}".format(1 / (time() - last_time)))
+
+        # Press "q" to quit
+        if cv2.waitKey(25) & 0xFF == ord("q"):
+            cv2.destroyAllWindows()
+            break
