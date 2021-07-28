@@ -59,7 +59,8 @@ def startEncounters():
         print(pixelNonEncounterTracker)
         print(numberOfEncounters)
         
-        
+        print(pyautogui.position())
+        time.sleep(1)
 
 def movementOption1():
 
