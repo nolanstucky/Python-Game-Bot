@@ -17,9 +17,10 @@ while(True):
     # get an updated image of the game
     screenshot = wincap.get_screenshot()
 
-    # display the processed image
-    points = luma_star.find(screenshot, 0.35, 'rectangles')
-    #points = vision_gunsnbottle.find(screenshot, 0.7, 'points')
+    cv.imshow('Unprocessed', screenshot)
+
+    # points = luma_star.find(screenshot, 0.35, 'rectangles')
+
 
     # debug the loop rate
     print('FPS {}'.format(1 / (time() - loop_time)))
@@ -27,8 +28,14 @@ while(True):
 
     # press 'q' with the output window focused to exit.
     # waits 1 ms every loop to process key presses
+    key = cv.waitKey(1)
+
     if cv.waitKey(1) == ord('q'):
         cv.destroyAllWindows()
         break
+    elif key == ord('k'):
+        cv.imwrite('positive_matches/{}.jpg'.format(loop_time), screenshot)
+    elif key == ord('l'):
+        cv.imwrite('negative_matches/{}.jpg'.format(loop_time), screenshot)
 
 print('Done.')
