@@ -1,4 +1,4 @@
-import cv2 
+import cv2 as cv 
 import numpy 
 import os
 from time import time
@@ -8,49 +8,49 @@ from mss import mss
 #changes working directory to folder this script is in
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# wincap = WindowCapture('Steam')
+wincap = WindowCapture()
 
-# WindowCapture.list_window_names()
+WindowCapture.list_window_names()
 
-# loop_time = time()
-# while(True):
-
-
-#     # screenshot = wincap.get_screenshot()
-
-#     cv.imshow('Computer Vision', screenshot)
-
-#     print('FPS {}' .format(1 / (time() - loop_time)))
-#     loop_time = time()
+loop_time = time()
+while(True):
 
 
-#     if cv.waitKey(1) == ord('k'):
-#         cv.destroyAllWindows()
-#         break
+    screenshot = wincap.get_screenshot()
+
+    cv.imshow('Computer Vision', screenshot)
+
+    print('FPS {}' .format(1 / (time() - loop_time)))
+    loop_time = time()
 
 
-# print('Done.')
+    if cv.waitKey(1) == ord('k'):
+        cv.destroyAllWindows()
+        break
 
-with mss() as sct:
-    # Part of the screen to capture
-    monitor = {"top": 40, "left": 0, "width": 1280, "height": 1040}
 
-    while "Screen capturing":
-        last_time = time()
+print('Done.')
 
-        # Get raw pixels from the screen, save it to a Numpy array
-        img = numpy.array(sct.grab(monitor))
+# with mss() as sct:
+#     # Part of the screen to capture
+#     monitor = {"top": 40, "left": 0, "width": 1280, "height": 1040}
 
-        # Display the picture
-        cv2.imshow("OpenCV/Numpy normal", img)
+#     while "Screen capturing":
+#         last_time = time()
 
-        # Display the picture in grayscale
-        # cv2.imshow('OpenCV/Numpy grayscale',
-        #            cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY))
+#         # Get raw pixels from the screen, save it to a Numpy array
+#         img = numpy.array(sct.grab(monitor))
 
-        print("fps: {}".format(1 / (time() - last_time)))
+#         # Display the picture
+#         cv2.imshow("OpenCV/Numpy normal", img)
 
-        # Press "q" to quit
-        if cv2.waitKey(25) & 0xFF == ord("q"):
-            cv2.destroyAllWindows()
-            break
+#         # Display the picture in grayscale
+#         # cv2.imshow('OpenCV/Numpy grayscale',
+#         #            cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY))
+
+#         print("fps: {}".format(1 / (time() - last_time)))
+
+#         # Press "q" to quit
+#         if cv2.waitKey(25) & 0xFF == ord("q"):
+#             cv2.destroyAllWindows()
+#             break
