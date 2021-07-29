@@ -9,7 +9,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 wincap = WindowCapture()
 
-luma_star = Vision('run.JPG')
+luma_star = Vision('grass.JPG')
 
 loop_time = time()
 while(True):
@@ -18,7 +18,7 @@ while(True):
     screenshot = wincap.get_screenshot()
 
     # display the processed image
-    points = luma_star.find(screenshot, 0.5, 'rectangles')
+    points = luma_star.find(screenshot, 0.35, 'rectangles')
     #points = vision_gunsnbottle.find(screenshot, 0.7, 'points')
 
     # debug the loop rate
