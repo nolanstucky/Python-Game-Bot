@@ -4,6 +4,7 @@ import os
 from time import time
 from windowcapture import WindowCapture
 from vision import Vision
+from cascade_utilities import generateNegativeDescriptionFile
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -11,16 +12,25 @@ wincap = WindowCapture()
 
 luma_star = Vision('grass.JPG')
 
+cascade_grass = cv.CascadeClassifier('cascade/cascade.xml')
+
+vision_grass = Vision(None)
+
 loop_time = time()
 while(True):
 
     # get an updated image of the game
     screenshot = wincap.get_screenshot()
 
-    cv.imshow('Unprocessed', screenshot)
+
 
     # points = luma_star.find(screenshot, 0.35, 'rectangles')
 
+    rectangles = cascade_grass.detectMultiScale(screenshot)
+
+    detection_image = vision_grass.draw_rectangles(screenshot, rectangles)
+
+    cv.imshow('Unprocessed', detection_image)
 
     # debug the loop rate
     print('FPS {}'.format(1 / (time() - loop_time)))
