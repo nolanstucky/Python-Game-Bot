@@ -4,13 +4,12 @@ import os
 from time import time
 from windowcapture import WindowCapture
 from vision import Vision
-from cascade_utilities import generateNegativeDescriptionFile
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 wincap = WindowCapture()
 
-luma_star = Vision('grass.JPG')
+# luma_star = Vision('grass.JPG')
 
 cascade_grass = cv.CascadeClassifier('cascade/cascade.xml')
 
@@ -32,9 +31,11 @@ while(True):
 
     cv.imshow('Unprocessed', detection_image)
 
+    print(vision_grass.get_click_points(rectangles))
+
     # debug the loop rate
-    print('FPS {}'.format(1 / (time() - loop_time)))
-    loop_time = time()
+    # print('FPS {}'.format(1 / (time() - loop_time)))
+    # loop_time = time()
 
     # press 'q' with the output window focused to exit.
     # waits 1 ms every loop to process key presses
